@@ -2,8 +2,11 @@ import mongoose from "mongoose";
 
 const PostSchema = new mongoose.Schema(
   {
-    text: { type: String, required: true },
-    images: {type: [String], default: []},
+    description: { type: String, required: true },
+    images: { type: [String], default: [] },
+    name: { type: String, required: true },
+    username: { type: String, required: true },
+    avatarUrl: { type: String, required: true },
     createAt: { type: Date, default: Date.now },
   },
   {

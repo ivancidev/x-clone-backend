@@ -3,8 +3,8 @@ import { Request, Response } from "express";
 
 export const getPosts = async (req: Request, res: Response) => {
   try {
-    const post = await Post.find();
-    res.json(post);
+    const posts = await Post.find().sort({ createdAt: -1 });
+    res.json(posts);
   } catch (error) {
     console.log(error);
     res.status(500).send({
@@ -15,11 +15,15 @@ export const getPosts = async (req: Request, res: Response) => {
 
 export const createPost = async (req: Request, res: Response) => {
   try {
-    console.log("Request Body:", req.body);
+    const { text, images, name, username, avatarUrl } = req.body;
 
-    const { text, images } = req.body;
-
-    const newPost = new Post({ text, images });
+    const newPost = new Post({
+      description: text,
+      images,
+      name,
+      username,
+      avatarUrl,
+    });
     await newPost.save();
 
     res.status(201).json(newPost);
